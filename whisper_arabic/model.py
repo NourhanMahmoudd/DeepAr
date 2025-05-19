@@ -12,8 +12,10 @@ SAMPLE_RATE = 16000
 class ArabicWhisper:
     def __init__(
         self,
-        model_name: str = "CUAIStudents/DeepAr-whisper-turbo",
-        device: Optional[str] = None
+        model_name: str = "CUAIStudents/DeepAr-v2",
+        device: Optional[str] = None,
+        chunk_length_s: int = 30,  # Add default chunking parameters
+        stride_length_s: List[int] = [5, 5]
     ):
         self.device = get_device() if device is None else device
         self.torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
@@ -29,7 +31,6 @@ class ArabicWhisper:
         self.model.to(self.device)
         
         # Make sure to use the processor that matches your fine-tuned model
-        # If it's based on whisper-large-v3-turbo, this is correct
         self.processor = AutoProcessor.from_pretrained(model_name)
         
         self.pipe = pipeline(
@@ -39,6 +40,8 @@ class ArabicWhisper:
             feature_extractor=self.processor.feature_extractor,
             torch_dtype=self.torch_dtype,
             device=self.device,
+            chunk_length_s=chunk_length_s,  # Process in chunks
+            stride_length_s=stride_length_s  # Overlap between chunks
         )
     
     def transcribe(
@@ -82,10 +85,10 @@ class ArabicWhisper:
             generate_kwargs=generation_kwargs
         )
         
+        # Return the full transcription object when timestamps are requested
+        if return_timestamps:
+            return transcription
+        
+        # Otherwise just return the text
         return transcription["text"]
         
-
-                
-        
-        
-
