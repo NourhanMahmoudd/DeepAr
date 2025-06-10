@@ -3,7 +3,6 @@ import torch
 import torchaudio.functional as F
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 from .utils import get_device, validate_audio_file
-from huggingface_hub import login
 import numpy
 import warnings
 
@@ -20,8 +19,6 @@ class ArabicWhisper:
         self.device = get_device() if device is None else device
         self.torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
         
-        # Using login token securely - consider using environment variables in production
-        login('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')
         
         self.model = AutoModelForSpeechSeq2Seq.from_pretrained(
             model_name,  
