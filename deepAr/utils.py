@@ -25,16 +25,12 @@ def validate_audio_file(file_path: Union[str, Path]) -> bool:
     Returns:
         bool: True if valid, False otherwise
     """
-    supported_formats = {'.wav', '.mp3', '.m4a', '.flac'}
     path = Path(file_path)
     
     if not path.exists():
         warnings.warn(f"File not found: {file_path}")
         return False
         
-    if path.suffix.lower() not in supported_formats:
-        warnings.warn(f"Unsupported audio format: {path.suffix}")
-        return False
         
     return True
 
