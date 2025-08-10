@@ -11,7 +11,7 @@ SAMPLE_RATE = 16000
 class ArabicWhisper:
     def __init__(
         self,
-        model_name: str = "CUAIStudents/DeepAr-v2",
+        model_name: str = "CUAIStudents/DeepAr",
         device: Optional[str] = None,
         chunk_length_s: int = 30,  # Add default chunking parameters
         stride_length_s: List[int] = [5, 5]
@@ -89,3 +89,4 @@ class ArabicWhisper:
         # Otherwise just return the text
         return transcription["text"]
         
+
