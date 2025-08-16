@@ -89,4 +89,7 @@ class DeepAr:
         # Otherwise just return the text
         return transcription["text"]
         
+    def tanscribe_batch(self, audios):
+        transcription = self.pipe(audios, return_timestamps= True)
+        return [out['text'] for out in transcription]
 
