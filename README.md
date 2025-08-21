@@ -56,7 +56,7 @@ DeepAr(
 transcribe(
     audio: Union[str, bytes, torch.Tensor, numpy.ndarray],
     sample_rate: Optional[int] = None,
-    return_timestamps: bool = False,
+    return_timestamps: Union[bool, str] = False,
     **generation_kwargs
 )
 ```
