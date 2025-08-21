@@ -89,7 +89,15 @@ class DeepAr:
         # Otherwise just return the text
         return transcription["text"]
         
-    def tanscribe_batch(self, audios):
+    def tanscribe_batch(self, audios: List[Union[str, bytes, torch.Tensor, numpy.ndarray]]):
+        """
+        Transcribe a batch of audio files using the Arabic Whisper model.
+        (not fully implemented, just an interface to use batch inference)
+        Args:
+            audios: List of audio file paths
+        Returns:
+            List of transcriptions
+        """
         transcription = self.pipe(audios, return_timestamps= True)
         return [out['text'] for out in transcription]
 
