@@ -1,7 +1,10 @@
 # DeepAr Model Wrapper
 
-A simple Python wrapper for the [CUAIStudents/DeepAr](https://huggingface.co/CUAIStudents/DeepAr) Arabic speech recognition model from Hugging Face.
+A simple Python package that wraps the [CUAIStudents/DeepAr](https://huggingface.co/CUAIStudents/DeepAr) model for **Arabic speech recognition (ASR)**.  
+It provides a clean interface for transcribing single audio files or batches with optional timestamps.
 
+> ⚠️ This repository is an **inference wrapper only**. Training code is not included.
+> 
 ## Installation
 
 1. Clone the repository:
@@ -15,9 +18,9 @@ cd DeepAr
 pip install -r requirements.txt
 ```
 
-3. Make sure you have FFmpeg installed for audio processing.
+3. Make sure **FFmpeg** is installed and available in your path.
 
-## Usage
+## Quickstart
 
 ```python
 from deepar import DeepAr
@@ -29,13 +32,22 @@ model = DeepAr()
 text = model.transcribe("audio.wav")
 print(text)
 
-# Get word-level timestamps
+# Get timestamps
 result = model.transcribe("audio.wav", return_timestamps=True)
 
-# Process multiple files
+# Batch processing
 audios = ["audio1.wav", "audio2.wav"]
-transcriptions = model.transcribe_batch(audios)
+results = model.transcribe_batch(audios)
+print(results)
 ```
+
+## Features
+- Simple Python interface for the Hugging Face DeepAr model
+- Single-file and batch transcription
+- Word- and segment-level timestamps (optional)
+- Handles multiple input formats (.wav, .mp3, .flac, raw arrays, tensors)
+- Automatic resampling to 16kHz for compatibility
+- GPU support (CUDA) when available
 
 ## API
 
