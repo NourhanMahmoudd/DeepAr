@@ -66,7 +66,7 @@ transcribe(
 ```python
 transcribe_batch(
     audios: List[Union[str, bytes, torch.Tensor, numpy.ndarray]],
-    return_timestamps: bool = True
+    return_timestamps: Union[bool, str] = True
 ) 
 ```
 
